@@ -1,0 +1,14 @@
+#!/bin/bash
+docker run \
+  --dt \
+  --name android \
+  -p 7022:22 \
+  -p 7080:8080 \
+  -p 7081:8081 \
+  --env JAVA_ARGS="-Xmx1024m" \
+  --volume=/opt/android-sdk-linux:/opt/android-sdk-linux \
+  --volume=/root/docker-android/config/.ssh:/root/.ssh \
+  --volume=/home/android:/home/android \
+  --workdir=/home/android \
+  docker-android && \
+docker exec -d android /bin/sh /home/android/android-config-sh

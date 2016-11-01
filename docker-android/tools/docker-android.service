@@ -1,0 +1,16 @@
+[Unit]
+Description=Jenkins
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+RestartSec=30s
+ExecStartPre=-/usr/bin/docker kill android
+ExecStartPre=-/usr/bin/docker rm android
+ExecStart=sh /root/docker-android/tools/docker-run
+ExecStop=/usr/bin/docker stop android
+
+[Install]
+WantedBy=default.target
